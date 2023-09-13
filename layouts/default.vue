@@ -75,14 +75,14 @@ export default {
   name: "DefaultLayout",
   data() {
     return {
-      userName: "John Doe",
+      userName: "Nishshanka CJ",
       clipped: true,
       drawer: false,
       fixed: false,
       items: [
         {
           icon: "mdi-apps",
-          title: "Welcome",
+          title: "University Home",
           to: "/",
         },
         {

@@ -95,7 +95,7 @@ export default {
         },
         {
           id: 8,
-          name: "Mobile App Development Workshop",
+          name: "Mobile App Development",
           subCode: "CSIT998",
           subname: "Software Development",
           description: "Hands-on workshop on building mobile applications.",
