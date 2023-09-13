@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <!-- <v-navigation-drawer
+    <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -23,7 +23,7 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer> -->
+    </v-navigation-drawer>
     <!-- <v-app-bar :clipped-left="clipped" fixed app>
 
       <v-toolbar-title>{{ title }}</v-toolbar-title>
@@ -39,11 +39,12 @@
 
     <v-app-bar app>
       <!-- Title -->
+
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
       <v-toolbar-title>{{ title }}</v-toolbar-title>
 
-
       <v-spacer></v-spacer>
-
 
       <!-- Profile Avatar -->
       <v-btn icon>
@@ -57,6 +58,7 @@
         <v-icon dark>mdi-logout</v-icon>
       </v-btn>
     </v-app-bar>
+
     <v-main>
       <v-container>
         <Nuxt />
@@ -70,38 +72,44 @@
 
 <script>
 export default {
-  name: 'DefaultLayout',
+  name: "DefaultLayout",
   data() {
     return {
-      userName: 'John Doe',
-      clipped: false,
+      userName: "John Doe",
+      clipped: true,
       drawer: false,
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
+          icon: "mdi-apps",
+          title: "Welcome",
+          to: "/",
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
+          icon: "mdi-email-seal-outline",
+          title: "Postal Service",
+          to: "/postoffice",
+        },
+        {
+          icon: "mdi-school",
+          title: "Scholarship",
+          to: "/scholarship",
+        },
+        {
+          icon: "mdi-account-supervisor-circle",
+          title: "Peer Learning",
+          to: "/peer-learning",
+        },
       ],
       miniVariant: false,
       right: true,
-      title: 'Service Uni'
-    }
+      title: "Service Uni",
+    };
   },
   methods: {
     logout() {
       console.log("logout called");
-    }
-  }
-}
-
-
-
-
+    },
+  },
+};
 </script>
