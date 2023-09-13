@@ -104,6 +104,82 @@
         </v-form>
       </v-card-text>
     </v-card>
+    <v-card class="mt-4">
+      <v-card-title primary-title>
+        <div>
+          <div>Parcel Tracker</div>
+        </div>
+      </v-card-title>
+      <v-card-text>
+        <v-form ref="form2">
+          <v-row>
+            <v-col cols="5">
+              <v-text-field
+                outlined
+                dense
+                clearable
+                v-model="trackingNumberSP"
+                label="Tracking Number"
+                required
+              ></v-text-field
+            ></v-col>
+            <v-col>
+              <v-btn @click="showTracking = true" dark color="blue">Track</v-btn>
+            </v-col>
+          </v-row></v-form
+        ><v-row>
+          <v-col v-if="showTracking" cols="12">
+            <!-- <v-timeline v-for="item in postTrack" align-top dense>
+              <v-timeline-item color="pink" small>
+                <v-row class="pt-1">
+                  <v-col cols="3">
+                    <strong>{{ item.time }}</strong>
+                    <div class="text-caption">{{ item.date }}</div>
+                  </v-col>
+                  <v-col>
+                    <strong>{{ item.orderStatus }}</strong>
+                  </v-col>
+                </v-row>
+              </v-timeline-item></v-timeline
+            > -->
+
+            <div>
+              <v-card>
+                <v-row class="pt-2 pr-4">
+                  <h4 class="ml-4 mt-2">
+                    Estimated Delivery Date : {{ deliveryDate }}
+                  </h4>
+                  <v-spacer></v-spacer>
+                  <v-btn @click="showTracking = false" icon color="error" >
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
+                </v-row>
+
+                <v-stepper class="mt-3" v-model="e1">
+                  <v-stepper-header>
+                    <v-stepper-step :complete="e1 > 1" step="1">
+                      Order Confirmed<br />
+                    </v-stepper-step>
+
+                    <v-divider></v-divider>
+
+                    <v-stepper-step :complete="e1 > 2" step="2">
+                      On the way
+                    </v-stepper-step>
+
+                    <v-divider></v-divider>
+
+                    <v-stepper-step :complete="e1 > 3" step="3">
+                      Delivered
+                    </v-stepper-step>
+                  </v-stepper-header>
+                </v-stepper>
+              </v-card>
+            </div>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 <script>
@@ -111,11 +187,14 @@ export default {
   data() {
     return {
       price: "",
+      showTracking:false,
       weight: null,
       length: null,
       width: null,
       height: null,
       destination: null,
+      e1: "3",
+      deliveryDate: "11/11/2023",
       states: [
         "New South Wales",
         "Victoria",
