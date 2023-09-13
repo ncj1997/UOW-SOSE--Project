@@ -24,37 +24,37 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer> -->
-    <v-app-bar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
+    <!-- <v-app-bar :clipped-left="clipped" fixed app>
+
       <v-toolbar-title>{{ title }}</v-toolbar-title>
-      <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
+      <v-spacer></v-spacer>
+      <v-avatar class="mx-2" color="indigo">
+        <v-icon dark>
+          mdi-account-circle
+        </v-icon>
+
+      </v-avatar>
+      <v-toolbar-title>{{ username }}</v-toolbar-title>
+    </v-app-bar> -->
+
+    <v-app-bar app>
+      <!-- Title -->
+      <v-toolbar-title>{{ title }}</v-toolbar-title>
+
+
+      <v-spacer></v-spacer>
+
+
+      <!-- Profile Avatar -->
+      <v-btn icon>
+        <v-avatar size="36" color="primary">
+          <v-icon dark>mdi-account</v-icon>
+        </v-avatar>
+      </v-btn>
+      <div>{{ userName }}</div>
+      <!-- Logout Button -->
+      <v-btn icon @click="logout">
+        <v-icon dark>mdi-logout</v-icon>
       </v-btn>
     </v-app-bar>
     <v-main>
@@ -62,10 +62,7 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer
-      :absolute="!fixed"
-      app
-    >
+    <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -74,8 +71,9 @@
 <script>
 export default {
   name: 'DefaultLayout',
-  data () {
+  data() {
     return {
+      userName: 'John Doe',
       clipped: false,
       drawer: false,
       fixed: false,
@@ -95,6 +93,15 @@ export default {
       right: true,
       title: 'Service Uni'
     }
+  },
+  methods: {
+    logout() {
+      console.log("logout called");
+    }
   }
 }
+
+
+
+
 </script>

@@ -1,17 +1,23 @@
 <template>
     <main>
-      <h1>Task Board</h1>
-      <p>Create a list of tasks</p>
-  
-      <div class="create-new">
-        <input 
-          type="text" 
-          v-model="newTask" 
-          placeholder="Add a new task" 
-          @keypress.enter="addTask" />
-        <button @click="addTask">Add</button>
-      </div>
-  
+      <v-row>
+        <v-col cols ='10'>
+          <h2>Peer Learing HUB</h2>
+        </v-col>
+
+        <v-col>
+         <v-btn
+          
+          small
+          dark
+          color="black"
+         >
+          <v-icon>mdi-plus</v-icon>
+          Add Session 
+         </v-btn>
+        </v-col>
+      </v-row>
+      <CourseCards/>
       <div class="tasks">
         <Task
           v-for="(task, i) in $store.state.tasks"
