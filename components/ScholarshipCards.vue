@@ -37,7 +37,7 @@
               </v-col>
             </v-row>
             <v-row justify="center" align="center" class="mb-2">
-              <v-btn color="primary" dark rounded>
+              <v-btn to="scholarship/apply" color="primary" dark rounded>
                 <v-icon left> mdi-bookmark-check </v-icon>
                 Apply for Scholarship
               </v-btn>

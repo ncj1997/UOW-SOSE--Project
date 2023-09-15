@@ -2,6 +2,27 @@
   <div>
     <v-row class="my-2" justify="center" align="center">
       <v-col cols="12">
+        <v-card class="mb-3">
+          <v-col cols="12">
+            <v-row>
+              <v-col>
+                <h4 class="ml-4">Scholarships Managements </h4>
+              </v-col>
+              <v-spacer></v-spacer>
+              <v-col cols="2">
+                <v-btn
+                  to="/scholarship/add"
+                  small
+                  dark
+                  color="black"
+                >
+                  <v-icon>mdi-plus</v-icon>
+                  Add Schol
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-card>
         <v-card>
           <v-card-title>Search Scholarships</v-card-title>
           <v-card-text>

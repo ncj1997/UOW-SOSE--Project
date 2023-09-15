@@ -61,4 +61,8 @@ export const actions = {
     const jsonData = require("~/static/scholarshipList.json");
     commit("SET_DATA", jsonData);
   },
+  addSchol({}, data) {
+    console.log("Data Received for Session add", data);
+    return 'Sucessfully Added Data'
+  },
 };

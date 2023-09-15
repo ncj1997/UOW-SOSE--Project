@@ -6,7 +6,7 @@
         Add Scholarship Details
       </v-card-title>
       <v-card-text>
-        <v-form @submit.prevent="submitForm">
+        <v-form ref="form" v-model="isvalidForm">
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
@@ -15,6 +15,7 @@
                 v-model="formData.name"
                 label="Scholarship Name"
                 required
+                :rules="[(v) => !!v || 'This Field is Required!']"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6">
@@ -25,6 +26,7 @@
                 :items="broadStudyAreas"
                 label="Category"
                 required
+                :rules="[(v) => !!v || 'This Field is Required!']"
               ></v-select>
             </v-col>
           </v-row>
@@ -34,6 +36,7 @@
             v-model="formData.description"
             label="Description"
             required
+            :rules="[(v) => !!v || 'This Field is Required!']"
           ></v-textarea>
           <v-row>
             <v-col cols="12" sm="6">
@@ -43,6 +46,7 @@
                 v-model="formData.openFrom"
                 label="Open From"
                 required
+                :rules="[(v) => !!v || 'This Field is Required!']"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6">
@@ -52,6 +56,7 @@
                 v-model="formData.openTo"
                 label="Open To"
                 required
+                :rules="[(v) => !!v || 'This Field is Required!']"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -63,6 +68,7 @@
                 v-model="formData.value"
                 label="Value"
                 required
+                :rules="[(v) => !!v || 'This Field is Required!']"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6">
@@ -72,6 +78,7 @@
                 v-model="formData.duration"
                 label="Duration"
                 required
+                :rules="[(v) => !!v || 'This Field is Required!']"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -84,6 +91,7 @@
                 :items="['Any', 'Honours']"
                 label="Level of Enrolment"
                 required
+                :rules="[(v) => !!v || 'This Field is Required!']"
               ></v-select>
             </v-col>
             <v-col cols="12" sm="6">
@@ -94,6 +102,7 @@
                 :items="graduateTypes"
                 label="Graduate Type"
                 required
+                :rules="[(v) => !!v || 'This Field is Required!']"
               ></v-select>
             </v-col>
           </v-row>
@@ -105,6 +114,7 @@
                 v-model="formData.numberAvailable"
                 label="Number Available"
                 required
+                :rules="[(v) => !!v || 'This Field is Required!']"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6">
@@ -115,6 +125,7 @@
                 :items="years"
                 label="Year of Scholarship"
                 required
+                :rules="[(v) => !!v || 'This Field is Required!']"
               ></v-select>
             </v-col>
           </v-row>
@@ -124,6 +135,7 @@
             v-model="formData.degree"
             label="Degree"
             required
+            :rules="[(v) => !!v || 'This Field is Required!']"
           ></v-text-field>
           <v-select
             outlined
@@ -132,6 +144,7 @@
             :items="['Grant']"
             label="Offer Type"
             required
+            :rules="[(v) => !!v || 'This Field is Required!']"
           ></v-select>
           <v-select
             outlined
@@ -140,9 +153,10 @@
             :items="broadStudyAreas"
             label="Broad Study Area"
             required
+            :rules="[(v) => !!v || 'This Field is Required!']"
           ></v-select>
 
-          <v-sheet class="mb-2" border :elevation="2" >
+          <v-sheet class="mb-2" border :elevation="2">
             <v-subheader>Application Criteria</v-subheader>
             <div
               v-for="(criteria, index) in formData.applicationCriteria"
@@ -151,11 +165,12 @@
               <v-row>
                 <v-col class="mx-2" cols="10">
                   <v-text-field
-                  dense
-                  outlined
+                    dense
+                    outlined
                     v-model="formData.applicationCriteria[index]"
                     label="Criteria"
                     required
+                    :rules="[(v) => !!v || 'This Field is Required!']"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="1">
@@ -170,10 +185,13 @@
             ></v-sheet
           >
 
-          <v-btn class="mt-3" type="submit" color="primary">Submit</v-btn>
+          <v-btn class="mt-3" @click="submitForm" color="primary">Submit</v-btn>
         </v-form>
       </v-card-text>
     </v-card>
+    <v-snackbar v-model="snackbar" :timeout="3000">
+      Sucessfully Added a new Schol
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -181,6 +199,8 @@
 export default {
   data() {
     return {
+      snackbar: false,
+      isvalidForm: false,
       formData: {
         name: "",
         category: "Any",
@@ -223,9 +243,17 @@ export default {
     removeCriteria(index) {
       this.formData.applicationCriteria.splice(index, 1);
     },
-    submitForm() {
+    async submitForm() {
       // Handle form submission here
       console.log(this.formData);
+      this.$refs.form.validate();
+      if (this.isvalidForm) {
+        console.log("valid");
+        await this.$store.dispatch("scholarships/addSchol", this.formData);
+
+        this.$refs.form.reset();
+        this.snackbar = true;
+      }
     },
   },
 };
