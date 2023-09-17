@@ -2,7 +2,7 @@
   <main>
     <v-row class="my-2" justify="center" align="center">
       <v-col cols="12">
-        <v-card>
+        <v-card class="mb-3">
           <v-row>
             <v-col>
               <h2 class="ml-4">Peer Learning Sessions</h2>
@@ -147,8 +147,15 @@ export default {
           .dispatch("peer-learning/addSession", this.formData)
           .then((response) => {
             console.log(response);
-            this.getData();
             this.showDialog = false;
+            this.formData = {
+              name: "",
+              subCode: "",
+              description: "",
+              location: "",
+              Date: "",
+              Time: "",
+            };
           });
       }
     },

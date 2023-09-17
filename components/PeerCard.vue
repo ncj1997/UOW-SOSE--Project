@@ -3,9 +3,9 @@
     <v-card
       rounded
       :elevation="hover ? 14 : 2"
-      class="mx-auto"
+      class=""
       max-height="450"
-      min-width="320"
+      min-width="330"
       max-width="344"
     >
       <!-- <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img> -->
@@ -50,7 +50,10 @@
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title v-if="item.text == 'numberPeer'"
-                >{{ cardData[item.text] }} Participants</v-list-item-title
+                >{{
+                  cardData[item.text].length
+                }}
+                Participants</v-list-item-title
               >
               <v-list-item-title
                 v-else
@@ -64,18 +67,28 @@
       <!-- Expansion Panel -->
       <v-expansion-panels>
         <v-expansion-panel>
-          <v-expansion-panel-header>
-            Session Details
-          </v-expansion-panel-header>
+          <v-expansion-panel-header> Session Details </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-card-text>
               {{ cardData.description }}
             </v-card-text>
             <v-row justify="center" align="center" class="mb-2">
-              <v-btn color="primary" dark rounded>
+              <v-btn
+                v-if="!checkForList(cardData['numberPeer'])"
+                color="primary"
+                dark
+                @click="makeInt(cardData)"
+                rounded
+              >
                 <v-icon left> mdi-check-outline </v-icon>
                 I am Intrested
               </v-btn>
+              <v-chip v-else dark color="green" text-color="white">
+                <v-avatar class="mr-3">
+                  <v-icon>mdi-check-circle-outline</v-icon>
+                </v-avatar>
+                Enrolled
+              </v-chip>
             </v-row>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -112,5 +125,14 @@ export default {
       { text: "numberPeer", icon: "mdi-account-group-outline" },
     ],
   }),
+  methods: {
+    async makeInt(cardData) {
+      await this.$store.dispatch("peer-learning/makeIntrest", cardData);
+    },
+    checkForList(List) {
+      const usid = this.$store.getters["user/getUID"];
+      return List.includes(usid);
+    },
+  },
 };
 </script>

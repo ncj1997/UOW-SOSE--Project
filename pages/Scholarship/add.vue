@@ -43,6 +43,7 @@
               <v-text-field
                 outlined
                 dense
+                type="date"
                 v-model="formData.openFrom"
                 label="Open From"
                 required
@@ -56,6 +57,7 @@
                 v-model="formData.openTo"
                 label="Open To"
                 required
+                type="date"
                 :rules="[(v) => !!v || 'This Field is Required!']"
               ></v-text-field>
             </v-col>

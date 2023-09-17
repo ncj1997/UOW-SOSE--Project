@@ -37,7 +37,12 @@
               </v-col>
             </v-row>
             <v-row justify="center" align="center" class="mb-2">
-              <v-btn to="scholarship/apply" color="primary" dark rounded>
+              <v-btn
+                :to="'scholarship/apply/' + scholarship._id"
+                color="primary"
+                dark
+                rounded
+              >
                 <v-icon left> mdi-bookmark-check </v-icon>
                 Apply for Scholarship
               </v-btn>
@@ -58,6 +63,7 @@ export default {
     return {
       scholarshipDetails: {
         openFrom: "Open from",
+        openTo: "Open to",
         value: "Value",
         duration: "Duration",
         levelOfEnrolment: "Level of Enrolment",

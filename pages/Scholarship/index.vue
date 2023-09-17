@@ -6,16 +6,22 @@
           <v-col cols="12">
             <v-row>
               <v-col>
-                <h4 class="ml-4">Scholarships Managements </h4>
+                <h4 class="ml-4">Scholarships Managements</h4>
               </v-col>
               <v-spacer></v-spacer>
-              <v-col cols="2">
+              <v-col cols="3">
                 <v-btn
-                  to="/scholarship/add"
+                  to="/scholarship/schols-applications"
                   small
                   dark
                   color="black"
                 >
+                  <v-icon>mdi-file-document</v-icon>
+                  Manage Applications
+                </v-btn>
+              </v-col>
+              <v-col cols="2">
+                <v-btn to="/scholarship/add" small dark color="black">
                   <v-icon>mdi-plus</v-icon>
                   Add Schol
                 </v-btn>
@@ -99,7 +105,7 @@ export default {
       selectedYear: null,
       selectedGraduateType: null,
       selectedBroadStudy: null,
-      years: ["Any", "2023", "2022", "2021"], // Replace with your available years
+      years: ["Any", "2025", "2024", "2023", "2022", "2021"], // Replace with your available years
       graduateTypes: ["Any", "Undergraduate", "Postgraduate"], // Replace with your graduate types
       broadStudyAreas: [
         "Any",
@@ -118,47 +124,6 @@ export default {
       ],
     };
   },
-  methods: {
-    // filterScholarships() {
-    //   // Show loading spinner
-    //   this.isLoading = true;
-    //   // Clone the original scholarship list to avoid modifying it directly
-    //   let filteredList = [...this.scholarshipList];
-    //   console.log(
-    //     this.selectedBroadStudy,
-    //     this.selectedGraduateType,
-    //     this.selectedYear
-    //   );
-    //   // Filter by selected year
-    //   if (this.selectedYear) {
-    //     filteredList = filteredList.filter(
-    //       (scholarship) => scholarship.yearOfScholarship === this.selectedYear
-    //     );
-    //   }
-    //   // Filter by selected graduate type
-    //   if (this.selectedGraduateType) {
-    //     filteredList = filteredList.filter(
-    //       (scholarship) =>
-    //         scholarship.graduateType === this.selectedGraduateType
-    //     );
-    //   }
-    //   // Filter by selected broad study area
-    //   if (this.selectedBroadStudy) {
-    //     filteredList = filteredList.filter(
-    //       (scholarship) =>
-    //         scholarship.broadStudyArea === this.selectedBroadStudy
-    //     );
-    //   }
-    //   // Simulate a 2-second delay using setTimeout
-    //   setTimeout(() => {
-    //     // Assign the filtered list after the delay
-    //     this.filteredScholarships = filteredList;
-    //     // Hide loading spinner
-    //     this.isLoading = false;
-    //   }, 2000);
-    //   console.log(filteredList);
-    //   this.scholarshipList = filteredList;
-    // },
-  },
+  methods: {},
 };
 </script>

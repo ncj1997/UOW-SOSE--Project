@@ -1,5 +1,6 @@
 [
   {
+    "id": 101,
     "name": "2023 Engineering Excellence Scholarship",
     "category": "Engineering",
     "description": "The Engineering Excellence Scholarship supports outstanding engineering students at UOW by providing financial assistance and industry exposure.",
@@ -20,6 +21,7 @@
     ]
   },
   {
+    "id": 102,
     "name": "2023 Environmental Science Research Grant",
     "category": "Science",
     "description": "This grant aims to support environmental science students in conducting research projects that contribute to sustainability and environmental preservation.",

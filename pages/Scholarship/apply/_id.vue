@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title class="headline">Scholarship Application Form</v-card-title>
       <v-card-text>
-        <v-form ref="form">
+        <v-form ref="form" v-model="valid">
           <!-- Basic Applicant Details -->
           <v-row>
             <v-col cols="12" sm="6">
@@ -40,7 +40,6 @@
             </v-col>
           </v-row>
 
-          <!-- CV Upload Section -->
           <v-row>
             <v-col cols="6">
               <v-file-input
@@ -86,12 +85,20 @@
           <!-- Submit Button -->
           <v-row>
             <v-col cols="12">
-              <v-btn @click="submitApplication" color="primary">Submit</v-btn>
+              <v-btn
+                :loading="isloading"
+                @click="submitApplication"
+                color="primary"
+                >Submit</v-btn
+              >
             </v-col>
           </v-row>
         </v-form>
       </v-card-text>
     </v-card>
+    <v-snackbar v-model="snackbar" :timeout="3000">
+      Your Application Has been submited
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -100,8 +107,11 @@
 export default {
   data() {
     return {
+      isloading: false,
+      snackbar: false,
       valid: false,
       applicant: {
+        scholId: this.$route.params.id,
         firstName: "",
         lastName: "",
         email: "",
@@ -112,12 +122,36 @@ export default {
     };
   },
   methods: {
-    async validate() {
-      const { valid } = await this.$refs.form.validate();
-      if (valid) alert("Form is valid");
+    handleFileUpload1(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          // this.base64Data[index] = reader.result.split(",")[1];
+          this.applicant.cvFile = reader.result.split(",")[1];
+        };
+      }
+      reader.readAsDataURL(file);
     },
-    submitApplication() {
-      this.validate();
+    async submitApplication() {
+      this.$refs.form.validate();
+      if (this.valid) {
+        console.log("valid");
+        this.isloading = true;
+        await this.$store.dispatch("scholarships/applySchol", this.applicant);
+        this.$refs.form.resetValidation();
+        this.applicant = {
+          scholId: this.$route.params.id,
+          firstName: "",
+          lastName: "",
+          email: "",
+          cvFile: null,
+          recommendationLetterFile: null,
+          additionalInfo: "",
+        };
+        this.snackbar = true;
+        this.isloading = false;
+      }
     },
   },
 };
