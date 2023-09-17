@@ -25,9 +25,11 @@
           :ref="application.id"
           class="my-7"
         >
-        <v-row>
-         <v-col class="ml-4 mt-2"> <h3>{{ application['scholName'] }}</h3></v-col>
-        </v-row>
+          <v-row>
+            <v-col class="ml-4 mt-2">
+              <h3>{{ application["scholName"] }}</h3></v-col
+            >
+          </v-row>
           <v-row>
             <v-col cols="5">
               <v-list dense>
@@ -47,7 +49,7 @@
                       <v-btn
                         icon
                         :href="
-                          'http://localhost:3500/' +
+                          'https://serviceuni-backend.onrender.com/' +
                           application[item.text]
                         "
                         target="_blank"
