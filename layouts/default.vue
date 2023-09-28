@@ -75,7 +75,7 @@ export default {
   name: "DefaultLayout",
   data() {
     return {
-      userName: "Nishshanka CJ",
+      userName: "Smith Wills",
       clipped: true,
       drawer: false,
       fixed: false,

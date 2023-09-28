@@ -80,9 +80,9 @@
               <v-card color="#E1F5FE" v-if="price" class="mb-2">
                 <v-card-text>
                   <div class="d-flex justify-space-between">
-                    <div><h4>Estimated Price:</h4></div>
+                    <!-- <div><h4>Estimated Price:</h4></div> -->
                     <div>
-                      <h4>${{ price }}</h4>
+                      <h4>{{ price }}</h4>
                     </div>
                   </div>
                 </v-card-text>
@@ -124,10 +124,27 @@
               ></v-text-field
             ></v-col>
             <v-col>
-              <v-btn @click="showTracking = true" dark color="blue">Track</v-btn>
+              <v-btn @click="getDeliveryInfo()" dark color="blue">Track</v-btn>
             </v-col>
           </v-row></v-form
         ><v-row>
+          <v-col class="mb-6" cols="6" v-if="errorTracking">
+            <v-card>
+              <v-card>
+                <v-row  class="pt-2 pb-3 pr-4">
+                  <h4 class="ml-4 mt-2">
+                    <v-icon color="red">mdi-alert-circle</v-icon>
+                    The tracking number provided is invalid
+                  </h4>
+                  <v-spacer></v-spacer>
+                  <v-btn @click="errorTracking = false" icon color="error">
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
+                </v-row>
+              
+              </v-card>
+            </v-card></v-col
+          >
           <v-col v-if="showTracking" cols="12">
             <!-- <v-timeline v-for="item in postTrack" align-top dense>
               <v-timeline-item color="pink" small>
@@ -150,7 +167,7 @@
                     Estimated Delivery Date : {{ deliveryDate }}
                   </h4>
                   <v-spacer></v-spacer>
-                  <v-btn @click="showTracking = false" icon color="error" >
+                  <v-btn @click="showTracking = false" icon color="error">
                     <v-icon>mdi-close</v-icon>
                   </v-btn>
                 </v-row>
@@ -187,7 +204,9 @@ export default {
   data() {
     return {
       price: "",
-      showTracking:false,
+      errorTracking: false,
+      trackingNumberSP: "",
+      showTracking: false,
       weight: null,
       length: null,
       width: null,
@@ -213,30 +232,57 @@ export default {
       this.price = "";
       this.$refs.form.reset();
     },
-    calculatePrice() {
-      // Add your logic to calculate the price based on weight, length, width, height, and destination.
-      // This is a simplified example; you can replace it with your actual pricing logic.
-      if (
-        this.weight &&
-        this.length &&
-        this.width &&
-        this.height &&
-        this.destination
-      ) {
-        // Replace this with your pricing logic that considers weight and dimensions.
-        // You can set different prices based on weight, size, and destination.
-        // You can use a switch or if-else statements to determine the price.
-        switch (this.destination) {
-          case "New South Wales":
-            this.price =
-              this.weight * 0.1 + this.length * this.width * this.height * 0.01;
+    async getDeliveryInfo() {
+      try {
+        const response = await this.$axios.get(
+          `/postal/${this.trackingNumberSP}`
+        );
+        // Process the response data here
+        console.log(response.data);
+        var status = response.data["status"];
+        switch (status) {
+          case "confirmed":
+            this.e1 = 1;
             break;
-          // Add cases for other states and pricing rules.
+          case "onway":
+            this.e1 = 2;
+            break;
+          case "delivered":
+            this.e1 = 3;
+            break;
           default:
-            this.price = 0; // Default price if destination is not recognized.
+            break;
         }
-      } else {
-        this.price = null;
+        this.deliveryDate = response.data["delieveryDate"];
+        this.showTracking = true;
+        this.errorTracking = false
+      } catch (error) {
+        // Handle errors here
+        this.errorTracking = true;
+        this.showTracking = false;
+
+        console.error("Error fetching data:", error);
+      }
+    },
+    async calculatePrice() {
+      var payload = {
+        weight: this.weight,
+        length: this.length,
+        width: this.width,
+        height: this.height,
+        destination: this.destination,
+      };
+      console.log(payload);
+
+      try {
+        const response = await this.$axios.post("/postal/checkcost", payload);
+        // Process the response data here
+        console.log(response.data);
+        this.price = response.data;
+      } catch (error) {
+        // Handle errors here
+        this.errorTracking = true;
+        console.error("Error fetching data:", error);
       }
     },
   },

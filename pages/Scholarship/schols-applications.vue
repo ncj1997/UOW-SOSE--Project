@@ -49,7 +49,7 @@
                       <v-btn
                         icon
                         :href="
-                          'https://serviceuni-backend.onrender.com/' +
+                          'http://localhost:3500/' +
                           application[item.text]
                         "
                         target="_blank"
