@@ -123,4 +123,10 @@ export const actions = {
     dispatch("loadApplicationData");
     return "Sucessfully Applied";
   },
+
+  async deleteScolarship({dispatch},data){
+    const response = await this.$axios.delete(`/scholarships/${data._id}`);
+    dispatch("loadData");
+    return response;
+  }
 };

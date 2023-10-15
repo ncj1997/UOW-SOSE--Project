@@ -13,7 +13,7 @@
     </div>
     <v-container v-else class="grey lighten-5">
       <v-row class="mb-6" no-gutters>
-        <v-col v-for="n in items" :key="n.id">
+        <v-col cols="4" v-for="n in items" :key="n.id">
           <PeerCard class="mb-6 mr-8" :cardData="n" />
         </v-col>
       </v-row>

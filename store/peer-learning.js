@@ -26,16 +26,21 @@ export const actions = {
   async makeIntrest({ commit, rootState, dispatch }, data) {
     var dataNew = [];
     for (let index = 0; index < data.numberPeer.length; index++) {
-      dataNew.push(array[index]);
+      dataNew.push(data.numberPeer[index]);
     }
     console.log(dataNew);
-    dataNew.push(rootState.user.userId)
+    dataNew.push(rootState.user.userId);
     // var numberPeer = [];
     const response = await this.$axios.put(`/peerSessions/${data._id}`, {
       numberPeer: dataNew,
     }); // Use a relative URL
     dispatch("loadData");
 
+    return response;
+  },
+  async deletePeerCard({ commit, rootState, dispatch }, data) {
+    const response = await this.$axios.delete(`/peerSessions/${data._id}`);
+    dispatch("loadData");
     return response;
   },
   async addSession({ rootState, dispatch }, data) {

@@ -46,6 +46,15 @@
                     ></v-text-field>
                   </v-col>
 
+                  <v-col cols="12" sm="12">
+                    <v-text-field
+                      v-model="formData.subname"
+                      label="Subject Name"
+                      required
+                      :rules="[(v) => !!v || 'This Field is Required!']"
+                    ></v-text-field>
+                  </v-col>
+
                   <v-col cols="12" sm="6">
                     <v-text-field
                       v-model="formData.subCode"
@@ -69,6 +78,7 @@
                       v-model="formData.description"
                       label="Description"
                       required
+                      auto-grow
                       :rules="[(v) => !!v || 'This Field is Required!']"
                     ></v-textarea>
                   </v-col>

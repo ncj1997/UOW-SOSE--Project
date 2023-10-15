@@ -2,8 +2,7 @@
   <v-hover v-slot="{ hover }">
     <v-card
       rounded
-      :elevation="hover ? 14 : 2"
-      class=""
+      :class="{ 'custom-elevation': hover}"
       max-height="450"
       min-width="330"
       max-width="344"
@@ -11,8 +10,39 @@
       <!-- <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img> -->
 
       <v-card-title>
-        {{ cardData.name }}
+        {{ cardData.name }} <v-spacer></v-spacer>
+        <v-btn
+          @click="deleteConfirm = true"
+          v-if="hover"
+          flat
+          icon
+          color="primary"
+        >
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
       </v-card-title>
+
+      <v-dialog v-model="deleteConfirm" max-width="500px">
+        <v-card>
+          <v-card-title class="headline text-center">
+            <v-icon size="100px" class="mx-auto" color="error"
+              >mdi-close-circle-outline</v-icon
+            >
+          </v-card-title>
+          <v-card-text class="mt-4">
+            <h2 class="text-center">Confirm Delete ?</h2>
+          </v-card-text>
+          <v-card-actions class="justify-center">
+            <v-spacer></v-spacer>
+            <v-btn outlined color="primary" @click="deleteConfirm = false"
+              >No</v-btn
+            >
+            <v-btn outlined color="error" @click="deleteCard(cardData)"
+              >Yes</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
       <v-card-subtitle>
         <v-list>
@@ -118,6 +148,7 @@ export default {
   },
   data: () => ({
     show: false,
+    deleteConfirm: false,
     items: [
       { text: "Time", icon: "mdi-clock" },
       { text: "Date", icon: "mdi-calendar-today-outline" },
@@ -129,6 +160,9 @@ export default {
     async makeInt(cardData) {
       await this.$store.dispatch("peer-learning/makeIntrest", cardData);
     },
+    async deleteCard(cardData) {
+      await this.$store.dispatch("peer-learning/deletePeerCard", cardData);
+    },
     checkForList(List) {
       const usid = this.$store.getters["user/getUID"];
       return List.includes(usid);
@@ -136,3 +170,5 @@ export default {
   },
 };
 </script>
+
+

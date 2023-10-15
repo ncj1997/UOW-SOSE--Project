@@ -46,6 +46,17 @@
                 <v-icon left> mdi-bookmark-check </v-icon>
                 Apply for Scholarship
               </v-btn>
+
+              <v-btn
+              class="ml-3"
+                @click="deleteSchol(scholarship)"
+                color="error"
+                dark
+                rounded
+              >
+                <v-icon left>mdi-delete </v-icon>
+                Delete Scholarship
+              </v-btn>
             </v-row>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -75,6 +86,11 @@ export default {
         broadStudyArea: "Broad Study Area",
       },
     };
+  },
+  methods: {
+    async deleteSchol(scol) {
+      await this.$store.dispatch("scholarships/deleteScolarship", scol);
+    },
   },
 };
 </script>
