@@ -20,7 +20,21 @@
             </v-row>
           </v-col>
         </v-card>
-        <v-card
+     <v-container fluid style="height: 60vh;" class="grey lighten-2" v-if="applications.length==0">
+     
+      <v-row class="mt-10" align="center" justify="center">
+        <v-col class="text-center">
+          <v-icon size="100px">mdi-file-document-alert-outline</v-icon>
+        </v-col>
+      </v-row>
+      <v-row align="center" justify="center">
+        <v-col class="text-center">
+          <h3>No Application Data for the selected Filter</h3>
+        </v-col>
+      </v-row>
+     </v-container>
+     <v-container  class="grey lighten-2" v-else>
+      <v-card
           v-for="application in applications"
           :ref="application.id"
           class="my-7"
@@ -103,6 +117,7 @@
             </v-chip>
           </v-card-actions>
         </v-card>
+     </v-container>
       </v-col></v-row
     >
   </div>

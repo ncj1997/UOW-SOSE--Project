@@ -2,13 +2,12 @@
   <v-hover v-slot="{ hover }">
     <v-card
       rounded
-      :class="{ 'custom-elevation': hover}"
+      :class="{ 'custom-elevation': hover }"
       max-height="450"
+      :color="hover ? '#E8EAF6' : ''"
       min-width="330"
       max-width="344"
     >
-      <!-- <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img> -->
-
       <v-card-title>
         {{ cardData.name }} <v-spacer></v-spacer>
         <v-btn
@@ -45,33 +44,14 @@
       </v-dialog>
 
       <v-card-subtitle>
-        <v-list>
+        <v-list :color="hover ? '#E8EAF6' : ''">
           {{ cardData.subname }}
           <!-- <br />
         {{ cardData.location }} -->
         </v-list>
       </v-card-subtitle>
-      <!-- <v-row>
-      <v-col>
-        <v-chip dark class="ma-2" color="black">
-          <v-icon color="white">mdi-clock</v-icon>
-          <span class="mx-1">{{ cardData.Time }}</span>
-        </v-chip>
-      </v-col>
-      <v-col>
-        <v-chip dark class="ma-2" color="black text-white">
-          <v-icon color="white">mdi-calendar-end-outline</v-icon>
-          <span class="mx-1">{{ cardData.Date }}</span>
-        </v-chip>
-      </v-col>
-      <v-col>
-        <v-chip class="ma-2" color="black">
-          <v-avatar left class="white"> {{ cardData.numberPeer }} </v-avatar>
-          <v-icon color="white">mdi-account-multiple</v-icon>
-        </v-chip>
-      </v-col>
-    </v-row> -->
-      <v-list disabled dense>
+
+      <v-list :color="hover ? '#E8EAF6' : ''" disabled dense>
         <!-- <v-subheader>REPORTS</v-subheader> -->
         <v-list-item-group color="primary">
           <v-list-item v-for="(item, i) in items" :key="i">
@@ -123,20 +103,6 @@
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
-
-      <!-- <v-expand-transition>
-      <div v-show="show">
-        <v-divider></v-divider>
-
-        <v-card-text>
-          {{ cardData.description }}
-        </v-card-text>
-        <v-btn outlined dark color="black">
-          <v-icon class="mx-2">mdi-thumb-up</v-icon>
-          Intrested
-        </v-btn>
-      </div>
-    </v-expand-transition> -->
     </v-card>
   </v-hover>
 </template>
@@ -162,6 +128,7 @@ export default {
     },
     async deleteCard(cardData) {
       await this.$store.dispatch("peer-learning/deletePeerCard", cardData);
+      this.deleteConfirm = false;
     },
     checkForList(List) {
       const usid = this.$store.getters["user/getUID"];
@@ -170,5 +137,3 @@ export default {
   },
 };
 </script>
-
-

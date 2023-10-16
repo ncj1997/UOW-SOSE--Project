@@ -48,8 +48,8 @@
               </v-btn>
 
               <v-btn
-              class="ml-3"
-                @click="deleteSchol(scholarship)"
+                class="ml-3"
+                @click="deleteConfirm = true"
                 color="error"
                 dark
                 rounded
@@ -57,6 +57,31 @@
                 <v-icon left>mdi-delete </v-icon>
                 Delete Scholarship
               </v-btn>
+
+              <v-dialog v-model="deleteConfirm" max-width="500px">
+                <v-card>
+                  <v-card-title class="headline text-center">
+                    <v-icon size="100px" class="mx-auto" color="error"
+                      >mdi-close-circle-outline</v-icon
+                    >
+                  </v-card-title>
+                  <v-card-text class="mt-4">
+                    <h2 class="text-center">Confirm Delete ?</h2>
+                  </v-card-text>
+                  <v-card-actions class="justify-center">
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      outlined
+                      color="primary"
+                      @click="deleteConfirm = false"
+                      >No</v-btn
+                    >
+                    <v-btn outlined color="error" @click="deleteSchol(scholarship)"
+                      >Yes</v-btn
+                    >
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </v-row>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -72,6 +97,7 @@ export default {
   },
   data() {
     return {
+      deleteConfirm: false,
       scholarshipDetails: {
         openFrom: "Open from",
         openTo: "Open to",
@@ -90,6 +116,7 @@ export default {
   methods: {
     async deleteSchol(scol) {
       await this.$store.dispatch("scholarships/deleteScolarship", scol);
+      this.deleteConfirm = false;
     },
   },
 };

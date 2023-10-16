@@ -60,7 +60,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container>
+      <v-container >
         <Nuxt />
       </v-container>
     </v-main>
