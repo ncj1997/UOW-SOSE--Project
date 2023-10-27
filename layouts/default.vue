@@ -23,6 +23,29 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+      <template v-slot:append>
+        <div class="pa-2">
+          <h3 class="ml-2">Project Source Code <v-icon>mdi-github</v-icon></h3>
+          <v-list>
+            <v-list-item
+              v-for="(item, i) in items2"
+              :key="i"
+              :href="item.to"
+              target="_blank"
+              router
+              exact
+            >
+              <v-list-item-action>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </div>
+      </template>
     </v-navigation-drawer>
     <!-- <v-app-bar :clipped-left="clipped" fixed app>
 
@@ -60,7 +83,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container >
+      <v-container>
         <Nuxt />
       </v-container>
     </v-main>
@@ -79,10 +102,22 @@ export default {
       clipped: true,
       drawer: false,
       fixed: false,
+      items2: [
+        {
+          icon: "mdi-monitor-screenshot",
+          title: "Backend",
+          to: "https://github.com/ncj1997/Backend-SOSE",
+        },
+        {
+          icon: "mdi-cogs",
+          title: "FrontEnd",
+          to: "https://github.com/ncj1997/UOW-SOSE--Project",
+        },
+      ],
       items: [
         {
           icon: "mdi-apps",
-          title: "University Home",
+          title: "Home",
           to: "/",
         },
         {
